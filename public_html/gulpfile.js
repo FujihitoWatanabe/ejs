@@ -10,9 +10,11 @@
     // npm i -D gulp-uglify
     // npm i -D gulp gulp-sass gulp-postcss postcss-cssnext
     // npm i -D browser-sync
+    // npm i -D gulp-plumber
+    // npm i -D gulp-notify
     // npm i -D gulp-ejs
-    // npm i -D gulp-rename
     // npm i -D gulp-minify-ejs
+    // npm i -D gulp-rename
 /*-------------------- /インストールコマンド -------------------- */
 
 /*-------------------- plug-in -------------------------------- */
@@ -25,6 +27,8 @@ var postcss = require("gulp-postcss");
 var cssnext = require("postcss-cssnext");
 var browserSync = require("browser-sync");
 var reload = browserSync.reload;
+var plumber = require("gulp-plumber");
+var notify  = require("gulp-notify");
 var ejs = require("gulp-ejs");
 var minifyejs = require("gulp-minify-ejs")
 var rename = require("gulp-rename");
@@ -80,7 +84,7 @@ gulp.task("uglify", function() {
 //EJS(テンプレートエンジン)
 gulp.task("ejs", function() {
     gulp.src(
-       ["src/ejs/*.ejs","src/ejs/**/*.ejs",'!' + "src/ejs/**/_*.ejs"] //参照するディレクトリ、参照を除外するファイル(テンプレート)
+       ["src/ejs/**/*.ejs",'!' + "src/ejs/**/_*.ejs"] //参照するディレクトリ、出力を除外するファイル
     )
     .pipe(minifyejs())　//圧縮
     .pipe(rename({extname: ".html"})) //拡張子をhtmlに
@@ -95,7 +99,6 @@ gulp.task("watch", function() {
     //gulp.watch(".*css", ["autoprefixer"]);
     gulp.watch("src/scss/*.scss", ["scss"]);
     gulp.watch("src/js/*.js", ["uglify"]);
-    gulp.watch("src/ejs/*.ejs", ["ejs"]);
     gulp.watch("src/ejs/**/*.ejs", ["ejs"]);
     browserSync.init({
         files: ["src/scss/","src/js/","src/ejs/"],
