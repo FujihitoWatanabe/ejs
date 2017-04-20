@@ -99,7 +99,7 @@ gulp.task("watch", function() {
     gulp.watch("src/ejs/**/*.ejs", ["ejs"]);
     browserSync.init({
         files: ["src/scss/","src/js/","src/ejs/"],
-        proxy: "http://localhost/~dev-site",
+        proxy: "http://localhost/~ejs-dev",
         //open: "external"
     });
 });
