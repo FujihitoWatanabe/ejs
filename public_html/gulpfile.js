@@ -10,6 +10,7 @@
     // npm i -D gulp-uglify
     // npm i -D gulp gulp-sass gulp-postcss postcss-cssnext
     // npm i -D browser-sync
+    // npm i -D gulp-debug
     // npm i -D gulp-plumber
     // npm i -D gulp-notify
     // npm i -D gulp-ejs
@@ -27,10 +28,12 @@ var postcss = require("gulp-postcss");
 var cssnext = require("postcss-cssnext");
 var browserSync = require("browser-sync");
 var reload = browserSync.reload;
-var plumber = require("gulp-plumber");
-var notify  = require("gulp-notify");
+//var debug = require("gulp-debug");
+//var plumber = require("gulp-plumber");
+//var notify  = require("gulp-notify");
 var ejs = require("gulp-ejs");
-var minifyejs = require("gulp-minify-ejs")
+var fs = require("fs");
+var minifyejs = require("gulp-minify-ejs");
 var rename = require("gulp-rename");
 /*-------------------- plug-in --------------------------------- */
 
@@ -83,10 +86,13 @@ gulp.task("uglify", function() {
 
 //EJS(テンプレートエンジン)
 gulp.task("ejs", function() {
+    var json = JSON.parse(fs.readFileSync("./pages.json"));
     gulp.src(
        ["src/ejs/**/*.ejs",'!' + "src/ejs/**/_*.ejs"] //参照するディレクトリ、出力を除外するファイル
     )
-    .pipe(minifyejs())　//圧縮
+    .pipe(ejs(json))
+    //.pipe(ejs())
+    //.pipe(minifyejs())　//圧縮
     .pipe(rename({extname: ".html"})) //拡張子をhtmlに
     .pipe(gulp.dest("dest/")) //出力先
 });

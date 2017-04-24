@@ -2,20 +2,25 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>トップタイトル</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="./dest/css/style.css" type="text/css" media="all">
+<title><%= pages[0].title %></title>
+<meta name="description" content="<%= pages[0].description %>">
 </head>
 <body>
     <div class="conatiner">
 
-        <% include common/_header %>
+        <%- include('common/_header', {rel_path:'./'}) %>
 
         <p>
-            トップトップ
-        </p><% var myParam = 'Hello! EJS!'; %>
+            トップ
+        </p>
 
+        <ul>
+        <% for (var i = 0; i < 5; i++) { %>
+        <li><%= i+1 %>個目のli。</li>
+        <% } %>
+        </ul>
+
+        <% include common/_footer %>
 
     </div>
 </body>

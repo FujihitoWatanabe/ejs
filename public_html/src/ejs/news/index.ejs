@@ -3,20 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>ニュースタイトル</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../dest/css/style.css" type="text/css" media="all">
+<title><%= pages[1].title %></title>
+<meta name="description" content="<%= pages[1].description %>">
 </head>
 <body>
     <div class="conatiner">
 
-        <%- include('../common/_header.ejs') -%>
+        <%- include('../common/_header', {rel_path:'../'}) %>
 
         <p>
-            ニュースニュースニュースニュース
+            ニュース
         </p>
 
-        <%- include('../common/_footer') -%>
+        <% include ../common/_footer %>
 
     </div>
 </body>
