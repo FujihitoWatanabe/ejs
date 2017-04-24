@@ -13,6 +13,7 @@
     // npm i -D gulp-debug
     // npm i -D gulp-plumber
     // npm i -D gulp-notify
+    // npm i -D gulp-imagemin
     // npm i -D gulp-ejs
     // npm i -D gulp-minify-ejs
     // npm i -D gulp-rename
@@ -31,6 +32,7 @@ var reload = browserSync.reload;
 //var debug = require("gulp-debug");
 //var plumber = require("gulp-plumber");
 //var notify  = require("gulp-notify");
+var imagemin = require("gulp-imagemin");
 var ejs = require("gulp-ejs");
 var fs = require("fs");
 var minifyejs = require("gulp-minify-ejs");
@@ -77,6 +79,16 @@ gulp.task("minify-css", function() {
 });
 */
 
+//画像圧縮
+gulp.task('imagemin', function(){
+    gulp.src("src/images/*.jpg")
+      .pipe(imagemin())
+      .pipe(gulp.dest("dest/images/"));
+    gulp.src("src/images/*.png")
+      .pipe(imagemin())
+      .pipe(gulp.dest("dest/images/"));
+});
+
 //JS圧縮
 gulp.task("uglify", function() {
     return gulp.src("src/js/*.js")
@@ -92,7 +104,7 @@ gulp.task("ejs", function() {
     )
     .pipe(ejs(json))
     //.pipe(ejs())
-    //.pipe(minifyejs())　//圧縮
+    .pipe(minifyejs())　//圧縮
     .pipe(rename({extname: ".html"})) //拡張子をhtmlに
     .pipe(gulp.dest("dest/")) //出力先
 });
